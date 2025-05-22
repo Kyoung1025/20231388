@@ -13,7 +13,7 @@ class Pay:
 
         
         if amount >= 20000:  #예: 20000원 이상이면 실패
-            print("[결제 시스템] ❌ 결제 실패: 한도 초과")
+            print("[결제 시스템] 결제 실패: 한도 초과")
             return False
 
         print(f"[결제 시스템] {method} 결제가 완료되었습니다.")
