@@ -11,7 +11,6 @@ class Pay:
     def process_payment(self, amount, method):
         print(f"[결제 시스템] {method} 결제 - {amount}원 결제 요청 중...")
 
-        
         if amount >= 20000:  #예: 20000원 이상이면 실패
             print("[결제 시스템] 결제 실패: 한도 초과")
             return False
@@ -20,14 +19,17 @@ class Pay:
         return True
 
 class Kitchen:
-    def print_order(self, order_items, order_type):
+    def print_order(self, order_items, order_type, order_number):
         print("[주방 출력기] 주문 내역 전송 중...")
+        print(f"○ 주문번호: {order_number}")
         print(f"※ 주문 방식: {order_type}")
         for item in order_items:
             print(f"- {item['name']} x {item['qty']}")
         print("[주방 출력기] 주문이 접수되었습니다.")
 
 class Kiosk:
+    order_number = 1
+
     def __init__(self):
         self.menu_system = Menu()
         self.payment_gateway = Pay()
@@ -96,7 +98,8 @@ class Kiosk:
         method = method_dict[method_choice]
 
         if self.payment_gateway.process_payment(total, method):
-            self.kitchen_printer.print_order(order, self.order_type)
+            self.kitchen_printer.print_order(order, self.order_type, Kiosk.order_number)
+            kiosk.order_number += 1
         else:
             print("결제가 실패하여 주문이 완료되지 않았습니다.")
 
